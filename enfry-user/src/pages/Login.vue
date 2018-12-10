@@ -75,7 +75,7 @@ export default {
       console.log(tab, event)
     },
     scanOk: function () {
-      this.scanIsOK = !this.scanIsOK;
+      this.scanIsOK = !this.scanIsOK
     }
   }
 }
