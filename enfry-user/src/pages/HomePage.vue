@@ -5,14 +5,10 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu
-          background-color=#545c64
-          text-color="#fff"
-          active-text-color="#ffd04b">
-          <el-submenu :index=category.id  v-for="(category,index) in categorys">
+        <el-menu background-color=#545c64 text-color="#fff" active-text-color="#ffd04b">
+          <el-submenu :index=category.id v-for="(category,index) in categorys" :key="category.id">
             <template slot="title">{{(category.name)+ (index+1)}}</template>
-            <el-menu-item :index=item.id v-for="item in category.items">
-              {{ item.name }}
+            <el-menu-item v-for="item in category.items" :key="item.id" :index=item.id>{{ item.name }}
             </el-menu-item>
           </el-submenu>
         </el-menu>
