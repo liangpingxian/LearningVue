@@ -44,11 +44,9 @@
               <div style="font-size: 12px; margin-top: 40px">扫码成功了 ..点击登录吧</div>
             </div>
             <button @click="scanOk">模拟扫码成功</button>
-
           </el-tab-pane>
         </el-tabs>
       </div>
-
     </div>
   </div>
 
