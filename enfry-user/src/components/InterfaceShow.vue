@@ -20,11 +20,36 @@
     </section>
     <section id="param">
       <div class="bolderTitle">请求参数</div>
-      <el-table :data="interfaceParams" stripe style="width: 100%" size="mini">
-        <el-table-column prop="name" label="参数名" width="180"></el-table-column>
-        <el-table-column prop="type" label="参数类型" width="180"></el-table-column>
-        <el-table-column prop="require" label="是否必填" width="180" :formatter="formatRequire"></el-table-column>
-        <el-table-column prop="description" label="说明"></el-table-column>
+      <el-table
+        :data="interfaceParams"
+        stripe
+        style="width: 100%"
+        size="mini"
+      >
+        <el-table-column
+          prop="name"
+          label="参数名"
+          width="180"
+          align='center'
+        ></el-table-column>
+        <el-table-column
+          prop="type"
+          label="参数类型"
+          width="180"
+          align='center'
+        ></el-table-column>
+        <el-table-column
+          prop="require"
+          label="是否必填"
+          width="180"
+          align='center'
+          :formatter="formatRequire"
+        ></el-table-column>
+        <el-table-column
+          prop="description"
+          label="说明"
+          align='center'
+        ></el-table-column>
       </el-table>
     </section>
     <section id="response">
@@ -42,87 +67,142 @@
     </section>
     <section id="responseDescription">
       <div class="bolderTitle">返回字段说明</div>
+      <el-table
+        :data="interfaceParams"
+        stripe
+        style="width: 100%"
+        size="mini"
+      >
+        <el-table-column
+          prop="name"
+          label="参数名"
+          width="180"
+        ></el-table-column>
+        <el-table-column
+          prop="type"
+          label="参数类型"
+          width="180"
+        ></el-table-column>
+        <el-table-column
+          prop="require"
+          label="是否必填"
+          width="180"
+          :formatter="formatRequire"
+        ></el-table-column>
+        <el-table-column
+          prop="description"
+          label="说明"
+        ></el-table-column>
+      </el-table>
     </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: "InterfaceShow",
-  data: function() {
+  name: 'InterfaceShow',
+  data: function () {
     return {
       descriptionInfo:
-        "这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,",
-      address: "/queryModelInfo.app",
+        '这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,',
+      address: '/queryModelInfo.app',
       interfaceParams: [
         {
-          name: "id",
-          type: "String",
-          description: "数据id",
+          name: 'id',
+          type: 'String',
+          description: '数据id',
           require: 1
         },
         {
-          name: "name",
-          type: "String",
+          name: 'name',
+          type: 'String',
           description:
-            "名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称",
-          require: "11"
+            '名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称',
+          require: '11'
         },
         {
-          name: "time",
-          type: "String",
-          description: "yyyy-MM-dd",
+          name: 'time',
+          type: 'String',
+          description: 'yyyy-MM-dd',
           require: 0
         },
         {
-          name: "time",
-          type: "String",
-          description: "yyyy-MM-dd",
+          name: 'time',
+          type: 'String',
+          description: 'yyyy-MM-dd',
           require: 0
         }
       ],
-      responseBody:
-        "{\n" +
-        '    "name": "中国",\n' +
-        '    "province": [{\n' +
-        '        "name": "黑龙江",\n' +
-        '        "cities": {\n' +
-        '            "city": ["哈尔滨", "大庆"]\n' +
-        "        }\n" +
-        "    }, {\n" +
-        '        "name": "广东",\n' +
-        '        "cities": {\n' +
-        '            "city": ["广州", "深圳", "珠海"]\n' +
-        "        }\n" +
-        "    }, {\n" +
-        '        "name": "台湾",\n' +
-        '        "cities": {\n' +
-        '            "city": ["台北", "高雄"]\n' +
-        "        }\n" +
-        "    }, {\n" +
-        '        "name": "新疆",\n' +
-        '        "cities": {\n' +
-        '            "city": ["乌鲁木齐"]\n' +
-        "        }\n" +
-        "    }]\n" +
-        "}"
-    };
-  },
-  methods: {
-    formatRequire(row, column) {
-      const require = row[column.property];
-      debugger;
-      return require ? "是" : "否";
+      responseBody: `{ 
+            "name": "中国", 
+            "province": [{ 
+                "name": "黑龙江", 
+                "cities": { 
+                    "city": ["哈尔滨", "大庆"] 
+                } 
+            }, { 
+                "name": "广东", 
+                "cities": { 
+                    "city": ["广州", "深圳", "珠海"] 
+                } 
+            }, { 
+                "name": "台湾", 
+                "cities": { 
+                    "city": ["台北", "高雄"] 
+                } 
+            }, { 
+                "name": "新疆", 
+                "cities": { 
+                    "city": ["乌鲁木齐"] 
+                } 
+            }] 
+        }`,
+      responseDescription: [
+        {
+          name: 'id',
+          type: 'String',
+          description: '数据id',
+          require: 1
+        },
+        {
+          name: 'name',
+          type: 'String',
+          description:
+            '名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称',
+          require: '11'
+        },
+        {
+          name: 'time',
+          type: 'String',
+          description: 'yyyy-MM-dd',
+          require: 0
+        },
+        {
+          name: 'time',
+          type: 'String',
+          description: 'yyyy-MM-dd',
+          require: 0
+        }
+      ],
     }
   },
-  mounted: {}
-};
-</script>
+  methods: {
+    formatRequire (row, column) {
+      const require = row[column.property]
+      debugger
+      return require ? '是' : '否'
+    }
+  },
+  mounted: {
 
+  }
+}
+</script>
 <style scoped>
 #interfaceContainer {
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom: 40px;
   text-align: left;
 }
 /*通用*/
