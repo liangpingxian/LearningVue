@@ -2,17 +2,32 @@
   <div id="interfaceContainer">
     <header id="name">
       <span class="name-left">这是接口名</span>
+      <span
+        class="name-operation"
+        v-show="!isUser"
+      >
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            接口操作按钮
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>编辑</el-dropdown-item>
+            <el-dropdown-item>停用</el-dropdown-item>
+            <el-dropdown-item>删除</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </span>
     </header>
     <section id="description">
       <div class="bolderTitle">接口描述</div>
-      <span class="description-body">{{descriptionInfo}}</span>
+      <span class="description-body">{{bindData.descriptionInfo}}</span>
     </section>
     <section id="alert">
       <span class="alert-body">请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意</span>
     </section>
     <section id="address">
       <div class="bolderTitle">接口地址</div>
-      <span class="address-body">{{address}}</span>
+      <span class="address-body">{{bindData.address}}</span>
     </section>
     <section id="httpType">
       <div class="bolderTitle">HTTP方式</div>
@@ -21,7 +36,7 @@
     <section id="param">
       <div class="bolderTitle">请求参数</div>
       <el-table
-        :data="interfaceParams"
+        :data="bindData.interfaceParams"
         stripe
         style="width: 100%"
         size="mini"
@@ -29,26 +44,26 @@
         <el-table-column
           prop="name"
           label="参数名"
-          width="180"
+          width="100"
           align='center'
         ></el-table-column>
         <el-table-column
           prop="type"
           label="参数类型"
-          width="180"
+          width="80"
           align='center'
         ></el-table-column>
         <el-table-column
           prop="require"
           label="是否必填"
-          width="180"
+          width="80"
           align='center'
           :formatter="formatRequire"
         ></el-table-column>
         <el-table-column
           prop="description"
           label="说明"
-          align='center'
+          align='left'
         ></el-table-column>
       </el-table>
     </section>
@@ -58,17 +73,17 @@
       <div class="response-body">
         <el-input
           type="textarea"
-          readonly="true"
+          :readonly=true
           :rows="10"
           placeholder="请输入内容"
-          v-model="responseBody"
+          v-model="bindData.responseBody"
         ></el-input>
       </div>
     </section>
     <section id="responseDescription">
       <div class="bolderTitle">返回字段说明</div>
       <el-table
-        :data="interfaceParams"
+        :data="bindData.interfaceParams"
         stripe
         style="width: 100%"
         size="mini"
@@ -101,100 +116,17 @@
 <script>
 export default {
   name: 'InterfaceShow',
-  data: function () {
+  props: ['bindData', 'isUser'],
+  data () {
     return {
-      descriptionInfo:
-        '这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,这是接口描述 描述描述秒,',
-      address: '/queryModelInfo.app',
-      interfaceParams: [
-        {
-          name: 'id',
-          type: 'String',
-          description: '数据id',
-          require: 1
-        },
-        {
-          name: 'name',
-          type: 'String',
-          description:
-            '名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称',
-          require: '11'
-        },
-        {
-          name: 'time',
-          type: 'String',
-          description: 'yyyy-MM-dd',
-          require: 0
-        },
-        {
-          name: 'time',
-          type: 'String',
-          description: 'yyyy-MM-dd',
-          require: 0
-        }
-      ],
-      responseBody: `{ 
-            "name": "中国", 
-            "province": [{ 
-                "name": "黑龙江", 
-                "cities": { 
-                    "city": ["哈尔滨", "大庆"] 
-                } 
-            }, { 
-                "name": "广东", 
-                "cities": { 
-                    "city": ["广州", "深圳", "珠海"] 
-                } 
-            }, { 
-                "name": "台湾", 
-                "cities": { 
-                    "city": ["台北", "高雄"] 
-                } 
-            }, { 
-                "name": "新疆", 
-                "cities": { 
-                    "city": ["乌鲁木齐"] 
-                } 
-            }] 
-        }`,
-      responseDescription: [
-        {
-          name: 'id',
-          type: 'String',
-          description: '数据id',
-          require: 1
-        },
-        {
-          name: 'name',
-          type: 'String',
-          description:
-            '名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称',
-          require: '11'
-        },
-        {
-          name: 'time',
-          type: 'String',
-          description: 'yyyy-MM-dd',
-          require: 0
-        },
-        {
-          name: 'time',
-          type: 'String',
-          description: 'yyyy-MM-dd',
-          require: 0
-        }
-      ],
+
     }
   },
   methods: {
-    formatRequire (row, column) {
+    formatRequire: function (row, column) {
       const require = row[column.property]
-      debugger
       return require ? '是' : '否'
     }
-  },
-  mounted: {
-
   }
 }
 </script>
@@ -216,13 +148,17 @@ export default {
 
 /*接口名*/
 #name {
-  height: 50px;
+  margin-top: 20px;
 }
-#name .name-left {
-  float: left;
-  line-height: 50px;
+#name .name-operation {
+  vertical-align: top;
+  margin-top: 0;
+  margin-left: 30px;
 }
-
+#name .name-operation .el-dropdown {
+  margin-top: 0;
+  vertical-align: top;
+}
 /*接口说明*/
 #description .description-body {
   background-color: grey;
@@ -230,9 +166,12 @@ export default {
 }
 
 /*注意*/
+#alert {
+  background-color: rebeccapurple;
+}
+
 #alert .alert-body {
   padding: 10px;
-  background-color: rebeccapurple;
   font-size: 12px;
   color: white;
 }
