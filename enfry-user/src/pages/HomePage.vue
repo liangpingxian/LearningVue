@@ -8,10 +8,8 @@
       >
       <el-autocomplete
         class="header-search"
-        v-model="state4"
         :fetch-suggestions="querySearchAsync"
         placeholder="搜索文档"
-        @select="handleSelect"
       ></el-autocomplete>
       <div
         class="header-name"
@@ -406,7 +404,6 @@ export default {
       this.currentShowPage = this.mainShowPageType.addInterface
     },
     creatAInterface (interfaceData) {
-      debugger
       this.toCreatInterfaceData = interfaceData
       this.currentShowPage = this.mainShowPageType.addInterface
     }
