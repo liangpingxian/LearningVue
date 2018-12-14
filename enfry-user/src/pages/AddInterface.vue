@@ -1,5 +1,5 @@
 <template>
-  <div>新增接口
+  <div>新增接口页面
     <div>{{interfaceData.name}}</div>
   </div>
 
