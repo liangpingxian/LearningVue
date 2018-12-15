@@ -6,6 +6,11 @@
         src="../assets/17.gif"
         alt=""
       >
+      <NewInterfaceDialog
+        class="header-add"
+        v-show="isAdmin"
+        v-on:creatAInterface='creatAInterface'
+      ></NewInterfaceDialog>
       <el-autocomplete
         class="header-search"
         :fetch-suggestions="querySearchAsync"
@@ -48,34 +53,33 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <NewInterfaceDialog
-        class="container-add"
-        v-show="isAdmin"
-        v-on:creatAInterface='creatAInterface'
-      ></NewInterfaceDialog>
       <el-main>
         <interface-show
           :bindData=selectData
           :isUser=!isAdmin
           v-if="currentShowPage == mainShowPageType.interface"
         ></interface-show>
-        <AddInterface
-          v-else
+        <!-- <AddInterface
           :interfaceData='toCreatInterfaceData'
+          v-else-if="currentShowPage == mainShowPageType.addInterface"
         >
-        </AddInterface>
+        </AddInterface> -->
+        <x-level-table v-else>
+
+        </x-level-table>
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
-import InterfaceShow from '../components/InterfaceShow'
+import InterfaceShow from '../pages/InterfaceShow'
 import AddInterface from '../pages/AddInterface'
 import NewInterfaceDialog from '../pages/NewInterfaceDialog'
+import XLevelTable from '../components/XLevelTable'
 export default {
   name: 'HomePage',
-  components: { InterfaceShow, AddInterface, NewInterfaceDialog },
+  components: { InterfaceShow, AddInterface, NewInterfaceDialog, XLevelTable },
   data () {
     const item = {
       date: 'id',
@@ -205,7 +209,7 @@ export default {
                     "city": ["哈尔滨", "大庆"] 
                 } 
             }, { 
-                "name": "广东", 
+                "name": "广东名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称", 
                 "cities": { 
                     "city": ["广州", "深圳", "珠海"] 
                 } 
@@ -390,7 +394,7 @@ export default {
     menuItemClick: function (index) {
       this.selectIndex = index
       this.currentShowPage = this.mainShowPageType.interface
-      this.selectData = this.datas[index]
+      // this.selectData = this.datas[index]
       console.log(index)
     },
     querySearchAsync (queryString, cb) {
@@ -414,10 +418,8 @@ export default {
       return this.datas[this.selectIndex]
     },
     isAdmin: function () {
-      // var isAdmin = this.$route.params.isAdmin
-      // debugger
-      // return isAdmin
-      return true
+      var isAdmin = this.$route.params.isAdmin
+      return isAdmin
     }
   }
 
@@ -442,6 +444,11 @@ export default {
   width: 50px;
   margin-left: 70px;
 }
+#header .header-add {
+  float: left;
+  width: 50px;
+  margin-left: 70px;
+}
 #header .header-name {
   font-weight: bolder;
   font-size: 25px;
@@ -459,17 +466,9 @@ export default {
   position: relative;
   z-index: 999;
 }
-#container .container-add {
-  height: 50px;
-  width: 200px;
-  background-color: red;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
+
 .el-aside {
   background-color: #545c64;
-  margin-bottom: 50px;
 }
 
 .el-menu {
