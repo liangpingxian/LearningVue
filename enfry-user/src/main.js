@@ -12,9 +12,7 @@ Vue.config.productionTip = false
 Vue.prototype.$goRoute = function (index) {
   this.$router.push(index)
 }
-
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
