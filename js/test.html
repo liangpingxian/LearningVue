@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>学习JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script text='text/javascript'>
+        var a;
+        // console.log(a);
+        // a = 10;
+        test();
+        function test () {
+            console.log('执行了test函数');
+            console.log('打印了a的值:' + a);
+            var b = 11;
+            console.log('打印了b的值:' + b);
+            function testSon () {
+                console.log(b);
+                var testSonProperty = 11;
+            }
+            testSon()
+        }
+        console.log(test);
+        
+    </script>
+
+<script text='text/html'>
+        /*
+        1.作用域提升  var function  
+        2.语法分析 预编译 解释执行
+        3.预编译过程
+            1.创建AO对象 Activation Object (活动对象 执行期上下文)
+            2.找形参和变量声明 将变量和形参作为AO对象的属性名 值为undefined
+            3.将实参值和形参统一
+            4.在函数体里面找到函数声明 值赋予函数体
+        4.作用域链 chrome
+        5.
+
+        */
+</script>
+
+
+
+</body>
+</html>
