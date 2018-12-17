@@ -106,7 +106,6 @@ export default {
   },
   methods: {
     handleCommand (command) {
-      debugger
       if (command === '1') {
         this.interfaceDailogShow = true
       } else {
@@ -115,7 +114,6 @@ export default {
     },
     toCreatAInterface () {
       this.interfaceDailogShow = false
-      debugger
       this.$emit('creatAInterface', this.interfaceData)
     }
   }
