@@ -1,11 +1,17 @@
 <template>
   <el-container id="container">
-    <el-header id="header">
-      <img
-        class="header-img"
-        src="../assets/17.gif"
-        alt=""
-      >
+    <el-header
+      id="header"
+      height='70'
+    >
+      <div class="header-left-div">
+        <!-- <img
+          src="../assets/17.gif"
+          alt=""
+        > -->
+        <span class="header-left-div-text">en+接口平台</span>
+      </div>
+
       <NewInterfaceDialog
         class="header-add"
         v-show="isAdmin"
@@ -31,27 +37,8 @@
 
     </el-header>
     <el-container>
-      <el-aside width="200px">
-        <el-menu
-          background-color=#545c64
-          text-color="#fff"
-          active-text-color="#ffd04b"
-        >
-          <el-submenu
-            :index=category.id
-            v-for="(category,index) in categorys"
-            :key="category.id"
-          >
-            <template slot="title">{{(category.name)+ (index+1)}}</template>
-            <el-menu-item
-              v-for="(item,subIndex) in category.items"
-              :key="item.id"
-              :index=item.id
-              @click="menuItemClick(subIndex)"
-            >{{ item.name }}
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
+      <el-aside width="280px">
+        <x-menu></x-menu>
       </el-aside>
       <el-main>
 
@@ -79,10 +66,11 @@ import InterfaceShow from '../pages/InterfaceShow'
 import AddInterface from '../pages/AddInterface'
 import NewInterfaceDialog from '../pages/NewInterfaceDialog'
 import XLevelTable from '../components/XLevelTable'
+import XMenu from '../components/XMenu'
 import { mapState } from 'vuex'
 export default {
   name: 'HomePage',
-  components: { InterfaceShow, AddInterface, NewInterfaceDialog, XLevelTable },
+  components: { InterfaceShow, AddInterface, NewInterfaceDialog, XLevelTable, XMenu },
   data () {
     const item = {
       date: 'id',
@@ -340,44 +328,44 @@ export default {
         }
       ],
       tableData: Array(20).fill(item),
-      categorys: [
-        {
-          id: '11',
-          name: '分类名',
-          items: [
-            {
-              id: '111',
-              name: '接口名1'
-            },
-            {
-              id: '112',
-              name: '接口名2'
-            },
-            {
-              id: '113',
-              name: '接口名3'
-            }
-          ]
-        },
-        {
-          id: '12',
-          name: '分类名',
-          items: [
-            {
-              id: '121',
-              name: '接口名1'
-            },
-            {
-              id: '122',
-              name: '接口名2'
-            },
-            {
-              id: '123',
-              name: '接口名3'
-            }
-          ]
-        }
-      ],
+      // categorys: [
+      //   {
+      //     id: '11',
+      //     name: '分类名',
+      //     items: [
+      //       {
+      //         id: '111',
+      //         name: '接口名1'
+      //       },
+      //       {
+      //         id: '112',
+      //         name: '接口名2'
+      //       },
+      //       {
+      //         id: '113',
+      //         name: '接口名3'
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     id: '12',
+      //     name: '分类名',
+      //     items: [
+      //       {
+      //         id: '121',
+      //         name: '接口名1'
+      //       },
+      //       {
+      //         id: '122',
+      //         name: '接口名2'
+      //       },
+      //       {
+      //         id: '123',
+      //         name: '接口名3'
+      //       }
+      //     ]
+      //   }
+      // ],
       selectIndex: 0,
       mainShowPageType: {
         interface: 0, // 接口页面
@@ -445,13 +433,24 @@ export default {
 #header {
   background-color: skyblue;
   color: #333;
-  line-height: 60px;
+  line-height: 70px;
   width: 100%;
   padding: 0;
-  .header-img {
+  .header-left-div {
     float: left;
-    width: 50px;
-    margin-left: 70px;
+    width: 280px;
+    margin-left: 0px;
+    height: 70px;
+    background-color: #35394d;
+    // img {
+    //   height: 70px;
+    // }
+    .header-left-div-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #46abdb;
+      font-family: '微软雅黑';
+    }
   }
   .header-add {
     float: left;
@@ -483,7 +482,15 @@ export default {
 }
 
 .el-aside {
-  background-color: #545c64;
+  background-color: #25293c;
+  padding: 0;
+  .x-menu {
+    padding-top: 15px;
+  }
+}
+.el-aside::-webkit-scrollbar {
+  /*隐藏滚轮*/
+  display: none;
 }
 
 .el-menu {
