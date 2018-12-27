@@ -48,36 +48,7 @@
     </section>
     <section id="param">
       <div class="bolderTitle">请求参数</div>
-      <el-table
-        stripe
-        style="width: 100%"
-        size="mini"
-      >
-        <el-table-column
-          prop="name"
-          label="参数名"
-          width="100"
-          align='center'
-        ></el-table-column>
-        <el-table-column
-          prop="type"
-          label="参数类型"
-          width="80"
-          align='center'
-        ></el-table-column>
-        <el-table-column
-          prop="require"
-          label="是否必填"
-          width="80"
-          align='center'
-          :formatter="formatRequire"
-        ></el-table-column>
-        <el-table-column
-          prop="description"
-          label="说明"
-          align='left'
-        ></el-table-column>
-      </el-table>
+      <AddParamTable></AddParamTable>
     </section>
     <section id="response">
       <div class="bolderTitle">返回结果</div>
@@ -124,9 +95,11 @@
 </template>
 
 <script>
+import AddParamTable from '../pages/AddParamTable.vue'
 export default {
   name: 'AddInterface',
   props: ['interfaceData'],
+  components: { AddParamTable },
   data () {
     return {
       httpType: ''

@@ -54,19 +54,21 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <interface-show
+
+        <!-- <x-level-table>
+        </x-level-table> -->
+
+        <!-- <interface-show
           :bindData=selectData
           :isUser=!isAdmin
           v-if="currentShowPage == mainShowPageType.interface"
-        ></interface-show>
-        <!-- <AddInterface
-          :interfaceData='toCreatInterfaceData'
-          v-else-if="currentShowPage == mainShowPageType.addInterface"
-        >
-        </AddInterface> -->
-        <x-level-table v-else>
+        ></interface-show> -->
+        <AddInterface :interfaceData='toCreatInterfaceData'>
+          <!-- v-else-if="currentShowPage == mainShowPageType.addInterface" -->
 
-        </x-level-table>
+        </AddInterface>
+        <!-- <x-level-table v-else>
+        </x-level-table> -->
       </el-main>
     </el-container>
   </el-container>
@@ -77,6 +79,7 @@ import InterfaceShow from '../pages/InterfaceShow'
 import AddInterface from '../pages/AddInterface'
 import NewInterfaceDialog from '../pages/NewInterfaceDialog'
 import XLevelTable from '../components/XLevelTable'
+import { mapState } from 'vuex'
 export default {
   name: 'HomePage',
   components: { InterfaceShow, AddInterface, NewInterfaceDialog, XLevelTable },
@@ -390,8 +393,14 @@ export default {
       // selectData: {}
     }
   },
+  // created: {
+  //   store
+  // },
   methods: {
     menuItemClick: function (index) {
+      this.$store.commit('increment')
+      console.log(this.storeCount)
+      console.log(this.sCount);
       this.selectIndex = index
       this.currentShowPage = this.mainShowPageType.interface
       // this.selectData = this.datas[index]
@@ -420,51 +429,57 @@ export default {
     isAdmin: function () {
       var isAdmin = this.$route.params.isAdmin
       return isAdmin
-    }
+    },
+    ...mapState({
+      storeCount: 'count',
+      sCount () {
+        return this.$store.getters.computeçdCount
+      }
+    })
   }
 
 }
 </script>
 
-<style>
-#container {
-  height: 100%;
-  position: relative;
-}
+<style lang='scss'>
 #header {
   background-color: skyblue;
   color: #333;
   line-height: 60px;
   width: 100%;
   padding: 0;
+  .header-img {
+    float: left;
+    width: 50px;
+    margin-left: 70px;
+  }
+  .header-add {
+    float: left;
+    width: 50px;
+    margin-left: 70px;
+  }
+  .header-name {
+    font-weight: bolder;
+    font-size: 25px;
+    margin: 0 auto;
+    width: 300px;
+  }
+  .header-search {
+    float: right;
+    margin-right: 20px;
+    height: 30px;
+    width: 300px;
+  }
   /* position: relative; */
 }
-#header .header-img {
-  float: left;
-  width: 50px;
-  margin-left: 70px;
-}
-#header .header-add {
-  float: left;
-  width: 50px;
-  margin-left: 70px;
-}
-#header .header-name {
-  font-weight: bolder;
-  font-size: 25px;
-  margin: 0 auto;
-  width: 300px;
-}
-#header .header-search {
-  float: right;
-  margin-right: 20px;
-  height: 30px;
-  width: 300px;
-}
 
-#container .container-sideContainer {
+#container {
+  height: 100%;
   position: relative;
-  z-index: 999;
+  .container-sideContainer {
+    position: relative;
+    z-index: 999;
+  }
 }
 
 .el-aside {

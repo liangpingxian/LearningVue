@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>分享</title>
+  </head>
+  <body>
+    <script>
+      Father.prototype.lastName = '张'
+      Father.prototype.age = '1000'
+      function Father() {}
+      var father = new Father()
+      Person.prototype = father
+      function Person() {
+        this.lastName = '李'
+      }
+      var aa = new Person()
+      console.log(aa.name)
+      console.log(aa.lastName)
+    </script>
+  </body>
+</html>
