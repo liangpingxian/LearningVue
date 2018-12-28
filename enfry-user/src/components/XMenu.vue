@@ -4,6 +4,7 @@
       background-color=#25293C
       text-color="#8c94B4"
       active-text-color="#ffffff"
+      default-active="overview"
     >
       <el-submenu
         :index=category.id
@@ -12,10 +13,10 @@
       >
         <template slot="title">{{category.name}}</template>
         <el-menu-item
-          v-for="(item,subIndex) in category.items"
+          v-for="item in category.items"
           :key="item.id"
           :index=item.id
-          @click="menuItemClick(subIndex)"
+          @click="menuItemClick(category.id,item.id)"
         >
           <span
             class="left-color-span"
@@ -47,7 +48,7 @@ export default {
               name: '更新日志'
             },
             {
-              id: 'commonParamsDescription',
+              id: 'commonParams',
               name: '通用参数说明'
             },
             {
@@ -79,6 +80,17 @@ export default {
           ]
         }
       ]
+    }
+  },
+  methods: {
+    menuItemClick (categoryId, itemId) {
+      if (categoryId === 'start') {
+        // 开始
+        this.$router.push('/' + itemId)
+      } else {
+        // 接口
+        this.$router.push({ name: '接口', params: { id: itemId } });
+      }
     }
   }
 }

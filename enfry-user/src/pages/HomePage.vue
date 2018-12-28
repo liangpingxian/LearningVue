@@ -22,19 +22,6 @@
         :fetch-suggestions="querySearchAsync"
         placeholder="搜索文档"
       ></el-autocomplete>
-      <div
-        class="header-name"
-        v-if="isAdmin"
-      >
-        en+接口平台管理端
-      </div>
-      <div
-        class="header-name"
-        v-else
-      >
-        en+接口平台
-      </div>
-
     </el-header>
     <el-container>
       <el-aside width="280px">
@@ -42,6 +29,7 @@
       </el-aside>
       <el-main>
 
+        <router-view></router-view>
         <!-- <x-level-table>
         </x-level-table> -->
 
@@ -50,10 +38,10 @@
           :isUser=!isAdmin
           v-if="currentShowPage == mainShowPageType.interface"
         ></interface-show> -->
-        <AddInterface :interfaceData='toCreatInterfaceData'>
-          <!-- v-else-if="currentShowPage == mainShowPageType.addInterface" -->
 
-        </AddInterface>
+        <!-- v-else-if="currentShowPage == mainShowPageType.addInterface" -->
+        <!-- <AddInterface :interfaceData='toCreatInterfaceData'>
+        </AddInterface> -->
         <!-- <x-level-table v-else>
         </x-level-table> -->
       </el-main>

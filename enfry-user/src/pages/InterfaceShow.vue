@@ -1,11 +1,8 @@
 <template>
   <div id="interfaceContainer">
     <header id="name">
-      <span class="name-left">这是接口名</span>
-      <span
-        class="name-operation"
-        v-show="!isUser"
-      >
+      <span class="name-left">{{dataId}}</span>
+      <span class="name-operation">
         <el-dropdown>
           <span class="el-dropdown-link">
             接口操作按钮
@@ -20,14 +17,14 @@
     </header>
     <section id="description">
       <div class="bolderTitle">接口描述</div>
-      <span class="description-body">{{bindData.descriptionInfo}}</span>
+      <span class="description-body">这是接口描述</span>
     </section>
     <section id="alert">
       <span class="alert-body">请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意请注意</span>
     </section>
     <section id="address">
       <div class="bolderTitle">接口地址</div>
-      <span class="address-body">{{bindData.address}}</span>
+      <span class="address-body">这是接口地址</span>
     </section>
     <section id="httpType">
       <div class="bolderTitle">HTTP方式</div>
@@ -36,7 +33,6 @@
     <section id="param">
       <div class="bolderTitle">请求参数</div>
       <el-table
-        :data="bindData.interfaceParams"
         stripe
         style="width: 100%"
         size="mini"
@@ -76,14 +72,12 @@
           :readonly=true
           :rows="10"
           placeholder="请输入内容"
-          v-model="bindData.responseBody"
         ></el-input>
       </div>
     </section>
     <section id="responseDescription">
       <div class="bolderTitle">返回字段说明</div>
       <el-table
-        :data="bindData.interfaceParams"
         stripe
         style="width: 100%"
         size="mini"
@@ -116,10 +110,20 @@
 <script>
 export default {
   name: 'InterfaceShow',
-  props: ['bindData', 'isUser'],
+  props: ['id'],
+  watch: {
+    '$route' (to, from) {
+      // 对路由变化作出响应...
+      // 变了个接口 刷新数据啊。。。。
+      debugger
+      console.log(to.params.id)
+      console.log(this.id)
+      this.dataId = to.params.id;
+    }
+  },
   data () {
     return {
-
+      dataId: 'dataId'
     }
   },
   methods: {

@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/pages/Login'
+// import Login from '@/pages/Login'
 import HomePage from '@/pages/HomePage'
-import AddInterface from '@/pages/AddInterface'
+import InterfaceShow from '@/pages/InterfaceShow'
+// import AddInterface from '@/pages/AddInterface'
 
 Vue.use(Router)
 
@@ -10,18 +11,44 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/HomePage',
-      name: 'HomePage',
-      component: HomePage
-    },
-    {
-      path: '/AddInterface',
-      name: 'AddInterface',
-      component: AddInterface
+      name: 'home',
+      component: HomePage,
+      children: [
+        {
+          name: '概述',
+          path: '/overview',
+          component: InterfaceShow
+        },
+        {
+          name: '更新日志',
+          path: '/updateLog',
+          component: InterfaceShow
+        },
+        {
+          name: '通用参数',
+          path: '/commonParams',
+          component: InterfaceShow
+        },
+        {
+          name: '全局错误码',
+          path: '/errorCode',
+          component: InterfaceShow
+        },
+        {
+          name: '接口版本对比',
+          path: '/interfaceCompare',
+          component: InterfaceShow
+        },
+        {
+          name: '接口',
+          path: '/interface/:id',
+          component: InterfaceShow
+        },
+        {
+          path: '',
+          redirect: '/overview'
+        }
+      ]
     }
   ]
 })
