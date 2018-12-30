@@ -1,49 +1,36 @@
 <template>
   <el-container id="container">
-    <el-header
-      id="header"
-      height='70'
-    >
-      <div class="header-left-div">
+    <el-aside width="280px">
+      <div class="aside-top-div">
         <!-- <img
           src="../assets/17.gif"
           alt=""
         > -->
-        <span class="header-left-div-text">en+接口平台</span>
+        <span class="aside-top-div-text">en+接口平台</span>
       </div>
-
-      <NewInterfaceDialog
-        class="header-add"
-        v-show="isAdmin"
-        v-on:creatAInterface='creatAInterface'
-      ></NewInterfaceDialog>
-      <el-autocomplete
-        class="header-search"
-        :fetch-suggestions="querySearchAsync"
-        placeholder="搜索文档"
-      ></el-autocomplete>
-    </el-header>
+      <x-menu />
+    </el-aside>
     <el-container>
-      <el-aside width="280px">
-        <x-menu></x-menu>
-      </el-aside>
+
+      <el-header
+        id="header"
+        height='70'
+      >
+        <NewInterfaceDialog
+          class="header-add"
+          v-show="isAdmin"
+          v-on:creatAInterface='creatAInterface'
+        ></NewInterfaceDialog>
+        <el-autocomplete
+          class="header-search"
+          :fetch-suggestions="querySearchAsync"
+          placeholder="搜索文档"
+        ></el-autocomplete>
+      </el-header>
       <el-main>
-
-        <router-view></router-view>
-        <!-- <x-level-table>
-        </x-level-table> -->
-
-        <!-- <interface-show
-          :bindData=selectData
-          :isUser=!isAdmin
-          v-if="currentShowPage == mainShowPageType.interface"
-        ></interface-show> -->
-
-        <!-- v-else-if="currentShowPage == mainShowPageType.addInterface" -->
-        <!-- <AddInterface :interfaceData='toCreatInterfaceData'>
-        </AddInterface> -->
-        <!-- <x-level-table v-else>
-        </x-level-table> -->
+        <div class='main-content'>
+          <router-view></router-view>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -316,44 +303,6 @@ export default {
         }
       ],
       tableData: Array(20).fill(item),
-      // categorys: [
-      //   {
-      //     id: '11',
-      //     name: '分类名',
-      //     items: [
-      //       {
-      //         id: '111',
-      //         name: '接口名1'
-      //       },
-      //       {
-      //         id: '112',
-      //         name: '接口名2'
-      //       },
-      //       {
-      //         id: '113',
-      //         name: '接口名3'
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     id: '12',
-      //     name: '分类名',
-      //     items: [
-      //       {
-      //         id: '121',
-      //         name: '接口名1'
-      //       },
-      //       {
-      //         id: '122',
-      //         name: '接口名2'
-      //       },
-      //       {
-      //         id: '123',
-      //         name: '接口名3'
-      //       }
-      //     ]
-      //   }
-      // ],
       selectIndex: 0,
       mainShowPageType: {
         interface: 0, // 接口页面
@@ -365,23 +314,12 @@ export default {
       toCreatInterfaceData: {
         category: '',
         name: ''
-      }
+      },
+      selectCateId: 'overview'
       // selectData: {}
     }
   },
-  // created: {
-  //   store
-  // },
   methods: {
-    menuItemClick: function (index) {
-      this.$store.commit('increment')
-      console.log(this.storeCount)
-      console.log(this.sCount);
-      this.selectIndex = index
-      this.currentShowPage = this.mainShowPageType.interface
-      // this.selectData = this.datas[index]
-      console.log(index)
-    },
     querySearchAsync (queryString, cb) {
       var results = [{ value: '11111' }, { value: '222222' }, { value: '333333' }]
       clearTimeout(this.timeout)
@@ -396,7 +334,6 @@ export default {
       this.toCreatInterfaceData = interfaceData
       this.currentShowPage = this.mainShowPageType.addInterface
     }
-
   },
   computed: {
     selectData: function () {
@@ -417,29 +354,16 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 #header {
-  background-color: skyblue;
+  background-color: white;
   color: #333;
   line-height: 70px;
+  height: 70px;
   width: 100%;
   padding: 0;
-  .header-left-div {
-    float: left;
-    width: 280px;
-    margin-left: 0px;
-    height: 70px;
-    background-color: #35394d;
-    // img {
-    //   height: 70px;
-    // }
-    .header-left-div-text {
-      font-size: 20px;
-      font-weight: bold;
-      color: #46abdb;
-      font-family: '微软雅黑';
-    }
-  }
+  box-shadow: 0px 2px 2px #888888;
+  border-bottom: 1px solid #dedede;
   .header-add {
     float: left;
     width: 50px;
@@ -475,6 +399,23 @@ export default {
   .x-menu {
     padding-top: 15px;
   }
+  .aside-top-div {
+    // float: left;
+    // width: 280px;
+    margin-left: 0px;
+    height: 70px;
+    line-height: 70px;
+    background-color: #35394d;
+    // img {
+    //   height: 70px;
+    // }
+    .aside-top-div-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #46abdb;
+      font-family: '微软雅黑';
+    }
+  }
 }
 .el-aside::-webkit-scrollbar {
   /*隐藏滚轮*/
@@ -486,5 +427,14 @@ export default {
 }
 .el-main {
   padding: 0;
+  background-color: #ececec;
+  .main-content {
+    // width: 100%;
+    margin: 5px;
+    // margin-top: 5px;
+    background-color: white;
+    border-radius: 5px;
+    // height: 100%;
+  }
 }
 </style>

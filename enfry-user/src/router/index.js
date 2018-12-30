@@ -3,6 +3,8 @@ import Router from 'vue-router'
 // import Login from '@/pages/Login'
 import HomePage from '@/pages/HomePage'
 import InterfaceShow from '@/pages/InterfaceShow'
+import OverView from '@/pages/OverView'
+import UpdateLog from '@/pages/UpdateLog'
 // import AddInterface from '@/pages/AddInterface'
 
 Vue.use(Router)
@@ -17,12 +19,12 @@ export default new Router({
         {
           name: '概述',
           path: '/overview',
-          component: InterfaceShow
+          component: OverView
         },
         {
           name: '更新日志',
           path: '/updateLog',
-          component: InterfaceShow
+          component: UpdateLog
         },
         {
           name: '通用参数',

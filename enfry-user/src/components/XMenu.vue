@@ -4,7 +4,7 @@
       background-color=#25293C
       text-color="#8c94B4"
       active-text-color="#ffffff"
-      default-active="overview"
+      :default-active=selectCategoryId
     >
       <el-submenu
         :index=category.id
@@ -79,7 +79,8 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      selectCategoryId: 'overview'
     }
   },
   methods: {
@@ -92,6 +93,10 @@ export default {
         this.$router.push({ name: '接口', params: { id: itemId } });
       }
     }
+  },
+  created () {
+    var paths = this.$route.path.split('/');
+    this.selectCategoryId = paths[paths.length - 1];
   }
 }
 </script>
