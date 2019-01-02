@@ -87,6 +87,7 @@ export default {
     menuItemClick (categoryId, itemId) {
       if (categoryId === 'start') {
         // 开始
+        debugger;
         this.$router.push('/' + itemId)
       } else {
         // 接口

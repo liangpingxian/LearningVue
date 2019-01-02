@@ -5,6 +5,7 @@ import HomePage from '@/pages/HomePage'
 import InterfaceShow from '@/pages/InterfaceShow'
 import OverView from '@/pages/OverView'
 import UpdateLog from '@/pages/UpdateLog'
+import CommonParams from '@/pages/CommonParams'
 // import AddInterface from '@/pages/AddInterface'
 
 Vue.use(Router)
@@ -29,7 +30,7 @@ export default new Router({
         {
           name: '通用参数',
           path: '/commonParams',
-          component: InterfaceShow
+          component: CommonParams
         },
         {
           name: '全局错误码',
