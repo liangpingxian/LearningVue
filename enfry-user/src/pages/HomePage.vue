@@ -1,72 +1,36 @@
 <template>
   <el-container id="container">
-    <el-header id="header">
-      <img
-        class="header-img"
-        src="../assets/17.gif"
-        alt=""
-      >
-      <NewInterfaceDialog
-        class="header-add"
-        v-show="isAdmin"
-        v-on:creatAInterface='creatAInterface'
-      ></NewInterfaceDialog>
-      <el-autocomplete
-        class="header-search"
-        :fetch-suggestions="querySearchAsync"
-        placeholder="搜索文档"
-      ></el-autocomplete>
-      <div
-        class="header-name"
-        v-if="isAdmin"
-      >
-        en+接口平台管理端
+    <el-aside width="280px">
+      <div class="aside-top-div">
+        <!-- <img
+          src="../assets/17.gif"
+          alt=""
+        > -->
+        <span class="aside-top-div-text">en+接口平台</span>
       </div>
-      <div
-        class="header-name"
-        v-else
-      >
-        en+接口平台
-      </div>
-
-    </el-header>
+      <x-menu />
+    </el-aside>
     <el-container>
-      <el-aside width="200px">
-        <el-menu
-          background-color=#545c64
-          text-color="#fff"
-          active-text-color="#ffd04b"
-        >
-          <el-submenu
-            :index=category.id
-            v-for="(category,index) in categorys"
-            :key="category.id"
-          >
-            <template slot="title">{{(category.name)+ (index+1)}}</template>
-            <el-menu-item
-              v-for="(item,subIndex) in category.items"
-              :key="item.id"
-              :index=item.id
-              @click="menuItemClick(subIndex)"
-            >{{ item.name }}
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
-      </el-aside>
-      <el-main>
-        <interface-show
-          :bindData=selectData
-          :isUser=!isAdmin
-          v-if="currentShowPage == mainShowPageType.interface"
-        ></interface-show>
-        <!-- <AddInterface
-          :interfaceData='toCreatInterfaceData'
-          v-else-if="currentShowPage == mainShowPageType.addInterface"
-        >
-        </AddInterface> -->
-        <x-level-table v-else>
 
-        </x-level-table>
+      <el-header
+        id="header"
+        height='70'
+      >
+        <NewInterfaceDialog
+          class="header-add"
+          v-show="isAdmin"
+          v-on:creatAInterface='creatAInterface'
+        ></NewInterfaceDialog>
+        <el-autocomplete
+          class="header-search"
+          :fetch-suggestions="querySearchAsync"
+          placeholder="搜索文档"
+        ></el-autocomplete>
+      </el-header>
+      <el-main>
+        <div class='main-content'>
+          <router-view></router-view>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -77,9 +41,11 @@ import InterfaceShow from '../pages/InterfaceShow'
 import AddInterface from '../pages/AddInterface'
 import NewInterfaceDialog from '../pages/NewInterfaceDialog'
 import XLevelTable from '../components/XLevelTable'
+import XMenu from '../components/XMenu'
+import { mapState } from 'vuex'
 export default {
   name: 'HomePage',
-  components: { InterfaceShow, AddInterface, NewInterfaceDialog, XLevelTable },
+  components: { InterfaceShow, AddInterface, NewInterfaceDialog, XLevelTable, XMenu },
   data () {
     const item = {
       date: 'id',
@@ -337,44 +303,6 @@ export default {
         }
       ],
       tableData: Array(20).fill(item),
-      categorys: [
-        {
-          id: '11',
-          name: '分类名',
-          items: [
-            {
-              id: '111',
-              name: '接口名1'
-            },
-            {
-              id: '112',
-              name: '接口名2'
-            },
-            {
-              id: '113',
-              name: '接口名3'
-            }
-          ]
-        },
-        {
-          id: '12',
-          name: '分类名',
-          items: [
-            {
-              id: '121',
-              name: '接口名1'
-            },
-            {
-              id: '122',
-              name: '接口名2'
-            },
-            {
-              id: '123',
-              name: '接口名3'
-            }
-          ]
-        }
-      ],
       selectIndex: 0,
       mainShowPageType: {
         interface: 0, // 接口页面
@@ -386,17 +314,12 @@ export default {
       toCreatInterfaceData: {
         category: '',
         name: ''
-      }
+      },
+      selectCateId: 'overview'
       // selectData: {}
     }
   },
   methods: {
-    menuItemClick: function (index) {
-      this.selectIndex = index
-      this.currentShowPage = this.mainShowPageType.interface
-      // this.selectData = this.datas[index]
-      console.log(index)
-    },
     querySearchAsync (queryString, cb) {
       var results = [{ value: '11111' }, { value: '222222' }, { value: '333333' }]
       clearTimeout(this.timeout)
@@ -411,7 +334,6 @@ export default {
       this.toCreatInterfaceData = interfaceData
       this.currentShowPage = this.mainShowPageType.addInterface
     }
-
   },
   computed: {
     selectData: function () {
@@ -420,55 +342,84 @@ export default {
     isAdmin: function () {
       var isAdmin = this.$route.params.isAdmin
       return isAdmin
-    }
+    },
+    ...mapState({
+      storeCount: 'count',
+      sCount () {
+        return this.$store.getters.computeçdCount
+      }
+    })
   }
 
 }
 </script>
 
-<style>
+<style lang='scss' scoped>
+#header {
+  background-color: white;
+  color: #333;
+  line-height: 70px;
+  height: 70px;
+  width: 100%;
+  padding: 0;
+  box-shadow: 0px 2px 2px #888888;
+  border-bottom: 1px solid #dedede;
+  .header-add {
+    float: left;
+    width: 50px;
+    margin-left: 70px;
+  }
+  .header-name {
+    font-weight: bolder;
+    font-size: 25px;
+    margin: 0 auto;
+    width: 300px;
+  }
+  .header-search {
+    float: right;
+    margin-right: 20px;
+    height: 30px;
+    width: 300px;
+  }
+  /* position: relative; */
+}
+
 #container {
   height: 100%;
   position: relative;
-}
-#header {
-  background-color: skyblue;
-  color: #333;
-  line-height: 60px;
-  width: 100%;
-  padding: 0;
-  /* position: relative; */
-}
-#header .header-img {
-  float: left;
-  width: 50px;
-  margin-left: 70px;
-}
-#header .header-add {
-  float: left;
-  width: 50px;
-  margin-left: 70px;
-}
-#header .header-name {
-  font-weight: bolder;
-  font-size: 25px;
-  margin: 0 auto;
-  width: 300px;
-}
-#header .header-search {
-  float: right;
-  margin-right: 20px;
-  height: 30px;
-  width: 300px;
-}
-
-#container .container-sideContainer {
-  position: relative;
-  z-index: 999;
+  .container-sideContainer {
+    position: relative;
+    z-index: 999;
+  }
 }
 
 .el-aside {
-  background-color: #545c64;
+  background-color: #25293c;
+  padding: 0;
+  .x-menu {
+    padding-top: 15px;
+  }
+  .aside-top-div {
+    // float: left;
+    // width: 280px;
+    margin-left: 0px;
+    height: 70px;
+    line-height: 70px;
+    background-color: #35394d;
+    // img {
+    //   height: 70px;
+    // }
+    .aside-top-div-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #46abdb;
+      font-family: '微软雅黑';
+    }
+  }
+}
+.el-aside::-webkit-scrollbar {
+  /*隐藏滚轮*/
+  display: none;
 }
 
 .el-menu {
@@ -476,5 +427,14 @@ export default {
 }
 .el-main {
   padding: 0;
+  background-color: #ececec;
+  .main-content {
+    // width: 100%;
+    margin: 5px;
+    // margin-top: 5px;
+    background-color: white;
+    border-radius: 5px;
+    // height: 100%;
+  }
 }
 </style>
