@@ -1,33 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>学习JS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
     <script text='text/javascript'>
-        var a;
-        // console.log(a);
-        // a = 10;
-        test();
-        function test () {
-            console.log('执行了test函数');
-            console.log('打印了a的值:' + a);
-            var b = 11;
-            console.log('打印了b的值:' + b);
-            function testSon () {
-                console.log(b);
-                var testSonProperty = 11;
-            }
-            testSon()
-        }
-        console.log(test);
-        
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (true) {
+                    console.log('用户登录成功,开始获取用户信息')
+                    reject('11111');
+                }
+            }, 2000);
+        }).then(res => {
+            //请求用户信息
+          return  new Promise((resolve, reject) => {
+                setTimeout(() => {
+                if (true) {
+                    console.log('获取用户信息成功,开始计算差距')
+                    reject('2222');
+                }
+            }, 2000);
+        })
+        }).then(res => {
+            //计算还差多少20岁
+            debugger
+            setTimeout(() => {
+                if (true) {
+                    console.log(`计算成功:还差${20-res.age}岁就20了`);
+                }
+            }, 2000);
+        }).catch(err => {
+            console.log(`是${err}这里出错了`);
+        })
     </script>
 
-<script text='text/html'>
+    <script text='text/html'>
         /*
         1.作用域提升  var function  
         2.语法分析 预编译 解释执行
@@ -38,11 +51,11 @@
             4.在函数体里面找到函数声明 值赋予函数体
         4.作用域链 chrome
         5.
-
         */
-</script>
+    </script>
 
 
 
 </body>
+
 </html>
