@@ -1,35 +1,22 @@
 <template>
   <el-table
-    :data="tableData"
+    :data="processedData"
     style="width: 100%"
   >
     <el-table-column
-      label="日期"
-      width="180"
+      label="名字"
+      width="300"
     >
-      <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.date }}</span>
+     <template slot-scope="scope">
+      {{scope.row.name}}
       </template>
     </el-table-column>
     <el-table-column
-      label="姓名"
-      width="180"
+      label="层级"
+      width="300"
     >
-      <template slot-scope="scope">
-        <el-popover
-          trigger="hover"
-          placement="top"
-        >
-          <p>姓名: {{ scope.row.name }}</p>
-          <p>住址: {{ scope.row.address }}</p>
-          <div
-            slot="reference"
-            class="name-wrapper"
-          >
-            <el-tag size="medium">{{ scope.row.name }}</el-tag>
-          </div>
-        </el-popover>
+     <template slot-scope="scope">
+      {{scope.row.level}}
       </template>
     </el-table-column>
     <el-table-column label="操作">
@@ -60,7 +47,37 @@ export default {
           typeName: 'String',
           description: '这是参数说明',
           remark: '这里是备注',
-          childrens: []
+          childrens: [{
+            name: '子行1111',
+            type: 1,
+            typeName: 'String',
+            description: '这是参数说明',
+            remark: '这里是备注',
+            childrens: []
+          },
+          {
+            name: '子行11111',
+            type: 1,
+            typeName: 'String',
+            description: '这是参数说明',
+            remark: '这里是备注',
+            childrens: [{
+              name: '子行22222',
+              type: 1,
+              typeName: 'String',
+              description: '这是参数说明',
+              remark: '这里是备注',
+              childrens: []
+            }]
+          },
+          {
+            name: '子行111111',
+            type: 1,
+            typeName: 'String',
+            description: '这是参数说明',
+            remark: '这里是备注',
+            childrens: []
+          }]
         },
         {
           name: 'id',
@@ -70,7 +87,8 @@ export default {
           description: '这是参数说明',
           childrens: []
         }
-      ]
+      ],
+      processedData: []
     }
   },
   methods: {
@@ -78,9 +96,29 @@ export default {
       console.log(index, row)
     },
     handleDelete (index, row) {
-      console.log(index, row)
+      let toDeleteData = this.processedData.splice(index, 1);
+      console.log(toDeleteData)
+    },
+    processAllData () {
+      let processedDatas = []
+      function toProcessDatas (datas, level) {
+        datas.forEach(element => {
+          element.level = level;
+          processedDatas.push(element);
+          if (element.childrens.length > 0) {
+            toProcessDatas(element.childrens, level + 1)
+          }
+        });
+      }
+      toProcessDatas(this.tableData, 0);
+      return processedDatas
     }
+
+  },
+  created () {
+    this.processedData = this.processAllData();
   }
+
 }
 </script>
 <style>

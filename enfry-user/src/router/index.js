@@ -6,7 +6,7 @@ import InterfaceShow from '@/pages/InterfaceShow'
 import OverView from '@/pages/OverView'
 import UpdateLog from '@/pages/UpdateLog'
 import CommonParams from '@/pages/CommonParams'
-// import AddInterface from '@/pages/AddInterface'
+import AddInterface from '@/pages/AddInterface'
 
 Vue.use(Router)
 
@@ -46,6 +46,11 @@ export default new Router({
           name: '接口',
           path: '/interface/:id',
           component: InterfaceShow
+        },
+        {
+          name: '新增接口',
+          path: '/AddInterface',
+          component: AddInterface
         },
         {
           path: '',

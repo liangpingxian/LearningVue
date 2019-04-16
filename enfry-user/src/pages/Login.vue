@@ -102,6 +102,7 @@
 
 </template>
 <script>
+import { isatty } from 'tty';
 export default {
   name: 'Login',
   data () {
@@ -118,6 +119,8 @@ export default {
   methods: {
     loginFunction: function () {
       var isAdmin = this.user.userName === 'admin'
+      // 写死是admin
+      isAdmin = true
       this.$goRoute({ name: 'HomePage', params: { isAdmin: isAdmin } })
       // this.router.push({ name: 'user', params: { userId: 123 }})
     },

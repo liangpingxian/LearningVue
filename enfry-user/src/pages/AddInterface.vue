@@ -1,7 +1,9 @@
 <template>
   <div id="interfaceContainer">
+    <x-level-table>
+      </x-level-table>
     <header id="name">
-      <span class="name-left">{{interfaceData.name}}</span>
+      <span class="name-left">1111</span>
     </header>
     <section id="description">
       <span class="bolderTitle">接口描述</span>
@@ -96,10 +98,11 @@
 
 <script>
 import AddParamTable from '../pages/AddParamTable.vue'
+import XLevelTable from '../components/XLevelTable.vue'
 export default {
   name: 'AddInterface',
   props: ['interfaceData'],
-  components: { AddParamTable },
+  components: { AddParamTable, XLevelTable },
   data () {
     return {
       httpType: ''
@@ -117,7 +120,7 @@ export default {
 #interfaceContainer {
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
   text-align: left;
 }
 /*通用*/
@@ -131,7 +134,9 @@ export default {
 
 /*接口名*/
 #name {
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  height: 40px;
+  line-height: 40px;
 }
 #name .name-operation {
   vertical-align: top;
