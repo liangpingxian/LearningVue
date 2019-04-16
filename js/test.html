@@ -5,63 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>学习JS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="module">
+      import a from './index.js';
+      console.log(a);
+    </script>
+    <style>
+      /* img {
+        width: 300px;
+        margin-left: -6px;
+      }
+      .box {
+        width: 300px;
+        height: 300px;
+        background-color: #f00;
+        position: absolute;
+      }
+      .wrapper {
+        width: 150px;
+        height: 150px;
+        background-color: #ff0;
+        margin-left: 150px;
+        margin-top: 200px;
+        overflow: hidden;
+      }
+      .content {
+        width: 50px;
+        height: 50px;
+        background-color: green;
+        margin-left: 50px;
+        margin-top: 50px;
+      } */
+
+      .content {
+        width: 50px;
+        height: 50px;
+        background-color: green;
+        float: left;
+      }
+      .content1 {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        background-color: green;
+      }
+      .box {
+        height: 150px;
+        width: 300px;
+        background-color: red;
+      }
+      .box::after {
+        content: '';
+        clear: both;
+        display: block;
+      }
+    </style>
   </head>
   <body>
-    <script text="text/javascript">
-      var a
-      // console.log(a);
-      // a = 10;
-      test()
-      function test() {
-        console.log('执行了test函数')
-        console.log('打印了a的值:' + a)
-        var b = 11
-        console.log('打印了b的值:' + b)
-        function testSon() {
-          console.log(b)
-          var testSonProperty = 11
-        }
-        testSon()
-      }
-      console.log(test)
-    </script>
+    <!-- 1. 文本类型的标签 inline inline-block -->
+    <img src="1111.png" alt="" />
+    <img src="1111.png" alt="" />
+    <img src="1111.png" alt="" />
+    <img src="1111.png" alt="" />
 
-    <!--
-      <script>
-        var a = 1,
-          b = 2,
-          c = 3
-        function test() {
-          console.log(a)
-          console.log(b)
-          function b() {
-            var a = 100
-            console.log(a)
-          }
-          b()
-          var a = b = 20
-          var c = d = 30
-        }
-        test()
-        console.log(a)
-        console.log(b)
-        console.log(c)
-        console.log(d)
-      </script>
-    -->
+    <span>123</span>
+    <span>234</span>
+    <span>234</span>
+    <span>234</span> -->
+    <!-- 2. margin垂直塌陷 -->
+    <!-- <div class="box">
+      <div class="wrapper">
+        <div class="content"></div>
+      </div>
+    </div> -->
 
-    <script text="text/html">
-      /*
-        1.作用域提升  var function  
-        2.编译执行  解释执行  语法分析 预编译 解释执行
-        3.预编译过程
-            1.创建AO对象 Activation Object (活动对象 执行期上下文)
-            2.找形参和变量声明 将变量和形参作为AO对象的属性名 值为undefined
-            3.将实参值和形参统一
-            4.在函数体里面找到函数声明 值赋予函数体
-        4.作用域链 chrome
-        5.闭包 立即执行函数  对象  原型  原型链 
-        */
-    </script>
+    <!-- 3. float高度塌陷 -->
+    <div class="box">
+      <div class="content1"></div>
+      <!-- <div class="content"></div> -->
+    </div>
   </body>
 </html>
