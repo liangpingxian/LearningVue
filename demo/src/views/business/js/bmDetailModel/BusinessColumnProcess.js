@@ -23,6 +23,9 @@ let columnClassCreater = function(element) {
     case BussinessFieldType.detailParent:
       field = new Column.DetailColumn(element);
       break;
+    case BussinessFieldType.subSet:
+      field = new Column.SubsetColumn(element);
+      break;
     case BussinessFieldType.select:
       field = new Column.SelectColumn(element);
       break;

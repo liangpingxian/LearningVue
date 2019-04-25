@@ -18,26 +18,17 @@
           class="column"
           v-for="column in columns"
           :key="column.uuid"
-          :uuid="column.uuid"
           :style="styleWithColumn(column)"
         >
           <!-- 根据配置读取不同的字段模板 -->
           <el-form-item
             class="form-item"
-            :label='column.name'
-            :required='column.isRequired()'
+            :label='column.x_formShowName'
+            :required="column.requrein === 0"
           >
-            <div v-if='column.isFieldType(ColumnType.select)'>单选控件</div>
-            <div v-else-if='column.isFieldType(ColumnType.date)'>时间控件</div>
-            <div v-else-if='column.isFieldType(ColumnType.attachment)'>附件控件</div>
-            <div v-else-if='column.isFieldType(ColumnType.detailParent)'>明细控件</div>
-            <div v-else-if='column.isFieldType(ColumnType.pureText)'>纯文本控件</div>
-            <div v-else-if='column.isFieldType(ColumnType.child)'>子项</div>
-            <BMInputComponent
-              v-else
-              :originData='column'
-            >
-            </BMInputComponent>
+            <!-- 字段渲染 -->
+            <BusinessColumnRendering :column='column'>
+            </BusinessColumnRendering>
           </el-form-item>
         </div>
       </div>
@@ -52,43 +43,60 @@
 </template>
 <script>
 import BusinessModel from './business/js/bmDetailModel/BusinessModel.js'
-import * as ColumnComponent from './business/components'
-import { BussinessFieldType } from './business/js/BusinessCommonHeader.js';
+import BusinessColumnRendering from './business/rendering/BusinessColumnRendering.vue'
 import { testData } from './business/js/testData.js'
 export default {
   name: 'Test',
   data () {
     return {
       // 业务建模的整体数据实例
-      businessData: {},
-      // 字段类型枚举 用来判断调用什么组件
-      ColumnType: BussinessFieldType,
+      businessData: {}
     }
   },
   methods: {
     // 计算每一个column样式
     styleWithColumn (column) {
-      let color = column.color ? column.color : 'black';
       return `
-        flex-basis:${column.getStyleWidth()};
-        color:${color};
+        flex-basis:${column.x_styleWidth};
+        color:${column.x_showColor} !important;
       `
     }
-
   },
-  components: { 'BMInputComponent': ColumnComponent.BMInputComponent },
-  computed: {
-
+  components: {
+    BusinessColumnRendering
   },
-  mounted () {
+  created () {
     this.businessData = new BusinessModel(testData);
   },
 }
 </script>
-<style scoped>
+<style>
 /* 让文本框铺开 */
-.form-item >>> .el-form-item__content {
+.el-form-item__content {
   flex: 1;
+}
+.el-input__inner {
+  border: 1px solid rgba(232, 236, 242, 1) !important;
+  border-radius: 4px !important;
+  height: 32px !important;
+}
+.el-form-item__label {
+  height: 32px !important;
+  line-height: 32px !important;
+}
+
+.el-form-item__content {
+  line-height: 32px !important;
+}
+.el-input__icon,
+.el-date-editor .el-range-separator {
+  line-height: 24px !important;
+}
+</style>
+
+<style scoped>
+.dynamic >>> .el-form-item {
+  font-size: 12px !important;
 }
 </style>
 
@@ -102,10 +110,12 @@ export default {
     overflow-y: hidden;
     .column {
       flex-shrink: 0;
+      vertical-align: center;
       // 横向展示
       .form-item {
         display: flex;
         flex-flow: row;
+        margin: 10px;
       }
     }
   }

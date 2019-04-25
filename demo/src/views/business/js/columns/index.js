@@ -7,6 +7,7 @@ import SeperatorLineColumn from './src/SeperatorLineColumn.js';
 import ChildColumn from './src/ChildColumn.js';
 import PureTextColumn from './src/PureTextColumn.js';
 import AttachmentColumn from './src/AttachmentColumn.js';
+import SubsetColumn from './src/SubsetColumn.js';
 
 export {
   BaseColumn,
@@ -17,5 +18,6 @@ export {
   SeperatorLineColumn,
   ChildColumn,
   PureTextColumn,
-  AttachmentColumn
+  AttachmentColumn,
+  SubsetColumn
 };

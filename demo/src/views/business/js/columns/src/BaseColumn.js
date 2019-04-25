@@ -1,3 +1,5 @@
+import { BussinessFieldType } from '../../BusinessCommonHeader.js';
+
 export default class BaseColumn {
   constructor(fieldsData) {
     this.accuracySet = fieldsData.accuracySet;
@@ -132,16 +134,22 @@ export default class BaseColumn {
     this.uppercaseEnable = fieldsData.uppercaseEnable;
     this.uuid = fieldsData.uuid;
     this.version = fieldsData.version;
+
+    // 处理自定义的属性...生命周期只计算一次
+
+    // 管理端定义的宽度
+    this.x_styleWidth = this.getStyleWidth();
+    // 表单该行的显示名称,可能为空
+    this.x_formShowName = this.getFormShowName();
+    // 管理端配置的展示颜色
+    this.x_showColor = this.color ? this.color : 'black';
+    // 对齐方式
+    this.x_align = this.align ? this.align : 'left';
+    // 占位符
+    this.x_placehoder = this.instructions ? this.instructions : this.name;
+    // 是否可以编辑
   }
 
-  // 是否必填
-  isRequired() {
-    return this.requrein === 0;
-  }
-  // 是否是某个类型的行
-  isFieldType(type) {
-    return this.fieldType === type;
-  }
   // 宽度 先不处理平分...不直观的配置
   getStyleWidth() {
     if (!this.fieldLengthType) {
@@ -156,6 +164,20 @@ export default class BaseColumn {
         return `${config[1]}%`;
       case '3':
         return `${config[1]}px`;
+    }
+  }
+
+  // 根据配置获取该展示的字段名称
+  getFormShowName() {
+    if (this.showPrefix === 1) {
+      return '';
+    }
+    switch (this.fieldType) {
+      case BussinessFieldType.pureText:
+      case BussinessFieldType.detailParent:
+        return '';
+      default:
+        return this.name;
     }
   }
 }
